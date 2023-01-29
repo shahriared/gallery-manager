@@ -34,4 +34,9 @@ class GalleryController
         
         return Gallery::where(['id' => $validatedData['id']])->update($validatedData);
     }
+
+    public static function delete($id)
+    {
+        return Gallery::where(['id' => $id])->delete();
+    }
 }

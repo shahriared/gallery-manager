@@ -20,4 +20,9 @@ class GalleryManager
     {
         return GalleryController::update($data);
     }
+
+    public function deleteGallery($id)
+    {
+        return GalleryController::delete($id);
+    }
 }
