@@ -30,4 +30,9 @@ class GalleryManager
     {
         return GalleryController::addImage($gallery_id, $data);
     }
+
+    public function deleteImageFromGallery($gallery_id, $gallery_image_id)
+    {
+        return GalleryController::deleteImage($gallery_id, $gallery_image_id);
+    }
 }

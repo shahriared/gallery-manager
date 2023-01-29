@@ -76,4 +76,17 @@ class GalleryController
         
         return null;
     }
+
+    public static function deleteImage($gallery_id, $gallery_image_id)
+    {
+        if (!Gallery::find($gallery_id)) {
+            return null;
+        }
+
+        $image = GalleryImage::where('id', '=', $gallery_image_id)->where('gallery_id', '=', $gallery_id)->firstOrFail();
+        Storage::delete($image->image);
+        $image->delete();
+
+        return true;
+    }
 }
