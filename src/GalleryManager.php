@@ -21,8 +21,13 @@ class GalleryManager
         return GalleryController::update($data);
     }
 
-    public function deleteGallery($id)
+    public function deleteGallery($gallery_id)
     {
-        return GalleryController::delete($id);
+        return GalleryController::delete($gallery_id);
+    }
+
+    public function addImageToGallery($gallery_id, $data)
+    {
+        return GalleryController::addImage($gallery_id, $data);
     }
 }

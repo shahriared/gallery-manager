@@ -2,8 +2,10 @@
 
 namespace Shahriared\GalleryManager\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Shahriared\GalleryManager\Models\Gallery;
+use Shahriared\GalleryManager\Models\GalleryImage;
 
 class GalleryController
 {
@@ -34,9 +36,44 @@ class GalleryController
         
         return Gallery::where(['id' => $validatedData['id']])->update($validatedData);
     }
-
+    
     public static function delete($id)
     {
+        $images = GalleryImage::where('gallery_id', '=', $id)->get();
+        foreach ($images as $img) {
+            Storage::delete($img->image);
+        }
         return Gallery::where(['id' => $id])->delete();
+    }
+
+    public static function addImage($id, $data)
+    {
+        if (!Gallery::find($id)) {
+            return null;
+        }
+        $validatedData = Validator::make($data, [
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'alt' => 'required',
+            'file' => 'required',
+        ])->validate();
+
+        $temp = [];
+        $temp['gallery_id'] = $id;
+        $temp['name'] = $validatedData['name'];
+        $temp['description'] = $validatedData['description'];
+        $temp['alt'] = $validatedData['alt'];
+        $temp['image'] = null;
+
+
+        $imageFile = $validatedData['file'];
+        $imagePath =  $imageFile->store('public/gallery-images');
+
+        if ($imagePath) {
+            $temp['image'] = $imagePath;
+            return GalleryImage::create($temp);
+        } 
+        
+        return null;
     }
 }
