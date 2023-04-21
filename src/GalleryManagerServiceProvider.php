@@ -12,7 +12,7 @@ class GalleryManagerServiceProvider extends PackageServiceProvider
         $package
             ->name('gallery-manager')
             ->hasConfigFile()
-            ->hasMigrations('create_gallery_table', 'create_gallery_images_table');
+            ->hasMigrations('create_gallery_table', 'create_gallery_images_table', 'update_gallery_table');
     }
 
     public function packageBooted()
