@@ -31,6 +31,7 @@ class GalleryController
         $validatedData = Validator::make($data, [
             'id' => 'required|exists:galleries,id',
             'name' => 'required|max:255',
+            'year' => 'required',
             'description' => 'required',
             'is_published' => 'required|boolean',
         ])->validate();
