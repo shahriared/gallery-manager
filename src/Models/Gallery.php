@@ -8,7 +8,7 @@ class Gallery extends Model
 {
     protected $table = 'galleries';
 
-    protected $fillable = ['name', 'description', 'is_published'];
+    protected $fillable = ['name', 'description', 'is_published', 'year'];
 
     public function images()
     {
